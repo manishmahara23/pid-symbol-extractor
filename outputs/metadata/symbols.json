@@ -1,0 +1,36 @@
+[
+    {
+        "symbol_id": "symbol_0",
+        "symbol_type": "image",
+        "image_path": "extracted_symbols\\shape_0.png",
+        "properties": {
+            "tag": "car",
+            "status": "active",
+            "description": "4 wheeler vehicle"
+        }
+    },
+    {
+        "symbol_id": "symbol_1",
+        "symbol_type": "image",
+        "image_path": "extracted_symbols\\shape_1.png",
+        "properties": {}
+    },
+    {
+        "symbol_id": "symbol_2",
+        "symbol_type": "image",
+        "image_path": "extracted_symbols\\shape_2.jpeg",
+        "properties": {}
+    },
+    {
+        "symbol_id": "symbol_3",
+        "symbol_type": "image",
+        "image_path": "extracted_symbols\\shape_3.jpeg",
+        "properties": {}
+    },
+    {
+        "symbol_id": "symbol_4",
+        "symbol_type": "image",
+        "image_path": "extracted_symbols\\shape_4.png",
+        "properties": {}
+    }
+]
