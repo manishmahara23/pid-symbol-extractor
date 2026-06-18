@@ -108,7 +108,7 @@ Interactive Swagger UI for testing and exploring API endpoints.
 
 The `/symbols` endpoint returns all extracted symbols along with their metadata and assigned properties.
 
-![Get Symbols](images/get-symbols.png)
+![Get Symbols](images/get-symbol.png)
 
 ---
 
