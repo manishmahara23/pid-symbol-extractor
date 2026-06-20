@@ -227,10 +227,9 @@ This approach works well for the provided PDF and allows all visible symbols to 
 
 ## Limitations
 
-- Symbol extraction is currently optimized for the structure of the provided PDF.
-- Vector symbol grouping is based on geometric proximity rather than semantic understanding.
-- Symbol classification is not performed automatically.
-- Complex multi-page engineering drawings may require additional grouping logic.
+- The current implementation has been validated on the provided assignment PDF.
+- Vector symbol grouping is based on geometric proximity and may require adjustment for significantly different document layouts.
+- Symbol extraction and symbol classification are treated as separate stages. Extracted symbols are not automatically classified.
 
 ## Future Improvements
 
