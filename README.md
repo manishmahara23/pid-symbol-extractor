@@ -1,22 +1,24 @@
 # PDF Symbol Extractor
 
-A Python-based tool for extracting embedded symbols from PDF documents and managing them through a REST API. The project processes PDF files, extracts image-based symbols, generates metadata automatically, and allows custom properties to be assigned and updated for each symbol.
+A Python-based system for extracting symbols from PDF documents and representing them as editable symbol entities with structured metadata. The project processes PDF files, identifies both embedded image symbols and vector-based drawing symbols, generates metadata automatically, and provides REST APIs for managing custom properties.
 
 ## Overview
 
-PDF documents often contain symbols, diagrams, and engineering components that need to be managed separately from the original document. This project provides a simple workflow to extract embedded symbols, organize them into a structured format, and expose them through a FastAPI-based backend.
+Engineering and technical PDF documents often contain symbols represented as a combination of embedded images, vector drawings, and text annotations. This project extracts visible symbols from PDF files, converts them into individual symbol entities, generates metadata for each extracted symbol, and exposes them through a FastAPI-based backend.
 
-The current implementation focuses on extracting embedded image-based symbols from PDF files and representing them as editable entities with customizable metadata.
+Each extracted symbol can be assigned custom properties such as tags, descriptions, and status information through API endpoints.
 
 ## Features
 
-* Extract embedded symbols from PDF documents
-* Generate metadata automatically for extracted symbols
+* Extract visible symbols from PDF documents
+* Support both raster image symbols and vector drawing symbols
+* Automatically generate metadata for extracted symbols
 * Store symbol information in JSON format
 * Retrieve symbol information through REST APIs
 * Assign and update custom properties for symbols
+* Health monitoring endpoint
 * Interactive API documentation using Swagger UI
-* Lightweight and easy-to-extend architecture
+* Lightweight and extensible architecture
 
 ## System Workflow
 
@@ -24,7 +26,10 @@ The current implementation focuses on extracting embedded image-based symbols fr
 PDF Document
       │
       ▼
-Symbol Extraction
+PDF Analysis
+      │
+      ▼
+Image & Vector Symbol Extraction
       │
       ▼
 Metadata Generation
@@ -43,55 +48,55 @@ pid-symbol-extractor/
 │
 ├── images/
 │   ├── swagger-ui.png
-│   ├── get-symbols.png
+│   ├── get-symbol.png
 │   └── update-symbol.png
 │
 ├── input/
 │   └── Code Breaker.pdf
 │
-├── extracted_symbols/
-│   ├── shape_0.png
-│   ├── shape_1.png
-│   ├── shape_2.jpeg
-│   ├── shape_3.jpeg
-│   └── shape_4.png
-│
 ├── outputs/
-│   └── metadata/
-│       └── symbols.json
+│   ├── metadata/
+│   │   └── symbols.json
+│   │
+│   └── pages/
+│       └── Code Breaker_page_1.png
 │
+├── .gitignore
+├── README.md
 ├── app.py
-├── pdf_to_image.py
+├── detect_vector_drawings.py
+├── extract_drawings.py
 ├── extract_symbols.py
 ├── generate_metadata.py
-├── detect_vector_drawings.py
 ├── models.py
-├── requirements.txt
-└── README.md
+├── pdf_to_image.py
+└── requirements.txt
 ```
 
 ## Architecture
 
 ```text
-Code Breaker.pdf
-        │
-        ▼
-extract_symbols.py
-        │
-        ▼
-Extracted Symbols
-        │
-        ▼
-generate_metadata.py
-        │
-        ▼
-symbols.json
-        │
-        ▼
-FastAPI
-   ┌────┴────┐
-   ▼         ▼
- GET       PUT
+PDF Document
+      │
+      ▼
+PyMuPDF Processing
+      │
+      ├──────────────┐
+      ▼              ▼
+Image Extraction   Vector Drawing Extraction
+      │              │
+      └──────┬───────┘
+             ▼
+      Symbol Generation
+             │
+             ▼
+      Metadata Generation
+             │
+             ▼
+         symbols.json
+             │
+             ▼
+          FastAPI
 ```
 
 ## Screenshots
@@ -120,9 +125,9 @@ Example:
 
 ```json
 {
-    "tag": "car",
+    "tag": "PV-1000",
     "status": "active",
-    "description": "4 wheeler vehicle"
+    "description": "Pressure Vessel"
 }
 ```
 
@@ -132,72 +137,45 @@ Example:
 
 ## Installation
 
-Clone the repository:
-
 ```bash
 git clone https://github.com/manishmahara23/pid-symbol-extractor.git
+
 cd pid-symbol-extractor
-```
 
-Create a virtual environment:
-
-```bash
 python -m venv .venv
-```
 
-Activate the environment:
-
-### Windows
-
-```bash
 .venv\Scripts\activate
-```
 
-Install dependencies:
-
-```bash
 pip install -r requirements.txt
 ```
 
 ## Usage
 
-### 1. Extract Symbols
+### 1. Extract Embedded Symbols
 
 ```bash
 python extract_symbols.py
 ```
 
-Extracted symbols will be stored in:
+### 2. Extract Vector Drawing Symbols
 
-```text
-extracted_symbols/
+```bash
+python extract_drawings.py
 ```
 
-### 2. Generate Metadata
+### 3. Generate Metadata
 
 ```bash
 python generate_metadata.py
 ```
 
-This creates:
-
-```text
-outputs/metadata/symbols.json
-```
-
-### 3. Run the API
+### 4. Run the API
 
 ```bash
 uvicorn app:app --reload
 ```
 
-API URL:
-
-```text
-http://127.0.0.1:8000
-```
-
-Swagger Documentation:
+Swagger UI:
 
 ```text
 http://127.0.0.1:8000/docs
@@ -205,43 +183,25 @@ http://127.0.0.1:8000/docs
 
 ## API Endpoints
 
-### GET /
-
-Returns API status information.
-
-### GET /symbols
-
-Returns all extracted symbols and their metadata.
-
-### GET /symbols/{symbol_id}
-
-Returns information for a specific symbol.
-
-### PUT /symbols/{symbol_id}
-
-Updates custom properties for a symbol.
-
-Example request:
-
-```json
-{
-    "tag": "PV-1000",
-    "status": "active",
-    "description": "Pressure Vessel"
-}
-```
+| Method | Endpoint             | Description                |
+| ------ | -------------------- | -------------------------- |
+| GET    | /                    | API information            |
+| GET    | /health              | Health check               |
+| GET    | /symbols             | Retrieve all symbols       |
+| GET    | /symbols/{symbol_id} | Retrieve a specific symbol |
+| PUT    | /symbols/{symbol_id} | Update symbol properties   |
 
 ## Example Metadata
 
 ```json
 {
-    "symbol_id": "symbol_0",
-    "symbol_type": "image",
+    "symbol_id": "shape_0",
+    "symbol_type": "engineering_symbol",
     "image_path": "extracted_symbols/shape_0.png",
     "properties": {
-        "tag": "car",
-        "status": "active",
-        "description": "4 wheeler vehicle"
+        "tag": "",
+        "status": "pending",
+        "description": ""
     }
 }
 ```
@@ -253,20 +213,19 @@ Example request:
 * PyMuPDF
 * Pydantic
 * Uvicorn
+* JSON
 
-## Limitations
+## Challenges
 
-The current implementation extracts embedded image-based symbols available within PDF documents.
-
-Vector drawing objects can be detected and analyzed separately, but they are not converted into editable symbol entities in the current version.
+One of the primary challenges was handling symbols represented as vector drawing objects rather than embedded images. The initial implementation extracted only embedded raster images. The extraction pipeline was later extended to analyze vector drawing elements, group related drawing primitives and associated labels, and represent them as complete symbol entities.
 
 ## Future Improvements
 
-* Vector symbol extraction
+* Automatic symbol classification
 * SVG export support
-* Symbol classification
-* Advanced metadata management
 * Search and filtering capabilities
+* Symbol similarity matching
+* Database integration
 
 ## Author
 
