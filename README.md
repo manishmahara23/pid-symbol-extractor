@@ -4,7 +4,7 @@ A Python-based system for extracting symbols from PDF documents and representing
 
 ## Overview
 
-Engineering and technical PDF documents often contain symbols represented as a combination of embedded images, vector drawings, and text annotations. This project extracts visible symbols from PDF files, converts them into individual symbol entities, generates metadata for each extracted symbol, and exposes them through a FastAPI-based backend.
+Engineering and technical PDF documents often contain symbols represented as a combination of embedded images, vector drawings, and text annotations. This project extracts visible symbols from PDF files, converts them into individual symbol entities, generates metadata for each extracted symbol, and exposes them through a FastAPI-based backend.The implementation was developed and validated using the provided Code Breaker PDF assignment, which contains both embedded raster images and vector-based engineering symbols.
 
 Each extracted symbol can be assigned custom properties such as tags, descriptions, and status information through API endpoints.
 
@@ -215,17 +215,31 @@ http://127.0.0.1:8000/docs
 * Uvicorn
 * JSON
 
-## Challenges
+## Challenges and Design Decisions
 
-One of the primary challenges was handling symbols represented as vector drawing objects rather than embedded images. The initial implementation extracted only embedded raster images. The extraction pipeline was later extended to analyze vector drawing elements, group related drawing primitives and associated labels, and represent them as complete symbol entities.
+The provided PDF contained a mixture of embedded raster images and vector-drawn engineering symbols.
+
+The initial implementation relied only on embedded image extraction and successfully identified 5 raster symbols. However, several engineering symbols were represented as vector drawing primitives rather than image objects.
+
+To address this, the extraction pipeline was extended to analyze vector drawing elements using PyMuPDF. Related drawing components and nearby labels are grouped together and exported as individual symbol entities.
+
+This approach works well for the provided PDF and allows all visible symbols to be represented in the metadata layer. However, symbol grouping currently relies on geometric proximity and may require tuning for PDFs with significantly different layouts or drawing styles.
+
+## Limitations
+
+- Symbol extraction is currently optimized for the structure of the provided PDF.
+- Vector symbol grouping is based on geometric proximity rather than semantic understanding.
+- Symbol classification is not performed automatically.
+- Complex multi-page engineering drawings may require additional grouping logic.
 
 ## Future Improvements
 
-* Automatic symbol classification
-* SVG export support
-* Search and filtering capabilities
-* Symbol similarity matching
-* Database integration
+- Automatic symbol classification using machine learning
+- SVG export for vector symbols
+- Improved grouping for complex engineering diagrams
+- Multi-page document support
+- Database-backed metadata storage
+- Symbol search and filtering
 
 ## Author
 
