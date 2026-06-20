@@ -1,36 +1,162 @@
 [
     {
-        "symbol_id": "symbol_0",
-        "symbol_type": "image",
+        "symbol_id": "shape_0",
+        "symbol_type": "engineering_symbol",
         "image_path": "extracted_symbols\\shape_0.png",
         "properties": {
-            "tag": "car",
-            "status": "active",
-            "description": "4 wheeler vehicle"
+            "tag": "",
+            "status": "pending",
+            "description": ""
         }
     },
     {
-        "symbol_id": "symbol_1",
-        "symbol_type": "image",
+        "symbol_id": "shape_1",
+        "symbol_type": "engineering_symbol",
         "image_path": "extracted_symbols\\shape_1.png",
-        "properties": {}
+        "properties": {
+            "tag": "",
+            "status": "pending",
+            "description": ""
+        }
     },
     {
-        "symbol_id": "symbol_2",
-        "symbol_type": "image",
+        "symbol_id": "shape_2",
+        "symbol_type": "engineering_symbol",
         "image_path": "extracted_symbols\\shape_2.jpeg",
-        "properties": {}
+        "properties": {
+            "tag": "",
+            "status": "pending",
+            "description": ""
+        }
     },
     {
-        "symbol_id": "symbol_3",
-        "symbol_type": "image",
+        "symbol_id": "shape_3",
+        "symbol_type": "engineering_symbol",
         "image_path": "extracted_symbols\\shape_3.jpeg",
-        "properties": {}
+        "properties": {
+            "tag": "",
+            "status": "pending",
+            "description": ""
+        }
     },
     {
-        "symbol_id": "symbol_4",
-        "symbol_type": "image",
+        "symbol_id": "shape_4",
+        "symbol_type": "engineering_symbol",
         "image_path": "extracted_symbols\\shape_4.png",
-        "properties": {}
+        "properties": {
+            "tag": "",
+            "status": "pending",
+            "description": ""
+        }
+    },
+    {
+        "symbol_id": "shape_5",
+        "symbol_type": "engineering_symbol",
+        "image_path": "extracted_symbols\\shape_5.png",
+        "properties": {
+            "tag": "",
+            "status": "pending",
+            "description": ""
+        }
+    },
+    {
+        "symbol_id": "shape_6",
+        "symbol_type": "engineering_symbol",
+        "image_path": "extracted_symbols\\shape_6.png",
+        "properties": {
+            "tag": "",
+            "status": "pending",
+            "description": ""
+        }
+    },
+    {
+        "symbol_id": "shape_7",
+        "symbol_type": "engineering_symbol",
+        "image_path": "extracted_symbols\\shape_7.png",
+        "properties": {
+            "tag": "",
+            "status": "pending",
+            "description": ""
+        }
+    },
+    {
+        "symbol_id": "shape_8",
+        "symbol_type": "engineering_symbol",
+        "image_path": "extracted_symbols\\shape_8.png",
+        "properties": {
+            "tag": "",
+            "status": "pending",
+            "description": ""
+        }
+    },
+    {
+        "symbol_id": "shape_9",
+        "symbol_type": "engineering_symbol",
+        "image_path": "extracted_symbols\\shape_9.png",
+        "properties": {
+            "tag": "",
+            "status": "pending",
+            "description": ""
+        }
+    },
+    {
+        "symbol_id": "shape_10",
+        "symbol_type": "engineering_symbol",
+        "image_path": "extracted_symbols\\shape_10.png",
+        "properties": {
+            "tag": "",
+            "status": "pending",
+            "description": ""
+        }
+    },
+    {
+        "symbol_id": "shape_11",
+        "symbol_type": "engineering_symbol",
+        "image_path": "extracted_symbols\\shape_11.png",
+        "properties": {
+            "tag": "",
+            "status": "pending",
+            "description": ""
+        }
+    },
+    {
+        "symbol_id": "shape_12",
+        "symbol_type": "engineering_symbol",
+        "image_path": "extracted_symbols\\shape_12.png",
+        "properties": {
+            "tag": "",
+            "status": "pending",
+            "description": ""
+        }
+    },
+    {
+        "symbol_id": "shape_13",
+        "symbol_type": "engineering_symbol",
+        "image_path": "extracted_symbols\\shape_13.png",
+        "properties": {
+            "tag": "",
+            "status": "pending",
+            "description": ""
+        }
+    },
+    {
+        "symbol_id": "shape_14",
+        "symbol_type": "engineering_symbol",
+        "image_path": "extracted_symbols\\shape_14.png",
+        "properties": {
+            "tag": "",
+            "status": "pending",
+            "description": ""
+        }
+    },
+    {
+        "symbol_id": "shape_15",
+        "symbol_type": "engineering_symbol",
+        "image_path": "extracted_symbols\\shape_15.png",
+        "properties": {
+            "tag": "",
+            "status": "pending",
+            "description": ""
+        }
     }
 ]

@@ -43,6 +43,12 @@ def home():
         "status": "running"
     }
 
+@app.get("/health")
+def health_check():
+    return {
+        "status": "healthy",
+        "service": "PDF Symbol Extractor API"
+    }
 
 @app.get("/symbols")
 def get_symbols():

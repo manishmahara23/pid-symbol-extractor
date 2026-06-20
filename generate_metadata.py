@@ -1,64 +1,87 @@
 import os
 import json
+import re
 
-SYMBOL_DIR = "extracted_symbols"
-OUTPUT_DIR = "outputs/metadata"
+OUTPUT_DIR = "extracted_symbols"
+METADATA_FILE = "outputs/metadata/symbols.json"
 
-os.makedirs(
-    OUTPUT_DIR,
-    exist_ok=True
-)
 
-symbols = []
+def natural_sort_key(filename):
+    return [
+        int(text) if text.isdigit() else text.lower()
+        for text in re.split(r'(\d+)', filename)
+    ]
 
-if os.path.exists(SYMBOL_DIR):
 
-    image_files = sorted(
-        [
-            f for f in os.listdir(SYMBOL_DIR)
-            if f.lower().endswith(
-                (".png", ".jpg", ".jpeg")
-            )
-        ]
+def generate_metadata():
+
+    metadata_list = []
+
+    os.makedirs(
+        os.path.dirname(METADATA_FILE),
+        exist_ok=True
     )
 
-    for idx, file_name in enumerate(
-        image_files,
-        start=0
-    ):
+    if not os.path.exists(OUTPUT_DIR):
+        print(
+            f"Error: Directory '{OUTPUT_DIR}' not found."
+        )
+        return
 
-        symbols.append(
-            {
-                "symbol_id": f"symbol_{idx}",
-                "symbol_type": "image",
-                "image_path": os.path.join(
-                    SYMBOL_DIR,
-                    file_name
-                ),
-                "properties": {}
+    files = sorted(
+        os.listdir(OUTPUT_DIR),
+        key=natural_sort_key
+    )
+
+    for filename in files:
+
+        if not (
+            filename.lower().endswith(".png")
+            or filename.lower().endswith(".jpg")
+            or filename.lower().endswith(".jpeg")
+        ):
+            continue
+
+        symbol_name = os.path.splitext(filename)[0]
+
+        symbol_data = {
+            "symbol_id": symbol_name,
+            "symbol_type": "engineering_symbol",
+            "image_path": os.path.join(
+                OUTPUT_DIR,
+                filename
+            ),
+            "properties": {
+                "tag": "",
+                "status": "pending",
+                "description": ""
             }
+        }
+
+        metadata_list.append(
+            symbol_data
         )
 
-metadata_path = os.path.join(
-    OUTPUT_DIR,
-    "symbols.json"
-)
+    with open(
+        METADATA_FILE,
+        "w",
+        encoding="utf-8"
+    ) as f:
+        json.dump(
+            metadata_list,
+            f,
+            indent=4
+        )
 
-with open(
-    metadata_path,
-    "w"
-) as f:
-
-    json.dump(
-        symbols,
-        f,
-        indent=4
+    print(
+        f"Generated metadata for "
+        f"{len(metadata_list)} symbols"
     )
 
-print(
-    f"Generated metadata for {len(symbols)} symbols"
-)
+    print(
+        f"Saved: {METADATA_FILE}"
+    )
 
-print(
-    f"Saved: {metadata_path}"
-)
+
+if __name__ == "__main__":
+    generate_metadata()
